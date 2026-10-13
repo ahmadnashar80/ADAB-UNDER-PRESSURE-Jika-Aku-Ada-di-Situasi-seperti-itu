@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADAB UNDER PRESSURE - Media Pembelajaran Interaktif PAI</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            900: '#0b132b',
+                            800: '#1c2541',
+                            700: '#2a3b5c',
+                            600: '#3a506b',
+                        },
+                        accent: {
+                            cyan: '#06b6d4',
+                            teal: '#14b8a6',
+                            amber: '#f59e0b',
+                            rose: '#f43f5e'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #060b19;
+            color: #f1f5f9;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar for smooth UI */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b132b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1c2541;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #06b6d4;
+        }
+
+        /* Ambient Glow Effects */
+        .glow-cyan {
+            box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.25);
+        }
+        .glow-teal {
+            box-shadow: 0 0 25px -5px rgba(20, 184, 166, 0.25);
+        }
+        .glass-panel {
+            background: rgba(28, 37, 65, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Simulated Chat Animations */
+        .chat-bubble {
+            animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Active Navigation Indicator */
+        .step-active {
+            border-color: #06b6d4;
+            background-color: rgba(6, 182, 212, 0.15);
+            color: #38bdf8;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between text-slate-100 antialiased selection:bg-cyan-500 selection:text-slate-900">
+
+    <!-- TOP HEADER / CONTROL BAR FOR TEACHER -->
+    <header class="sticky top-0 z-40 w-full glass-panel border-b border-slate-800 bg-navy-900/90 px-4 py-3 shadow-md">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+            <!-- Brand Badge -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="goToPage(1)">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-teal-400 flex items-center justify-center font-bold text-slate-900 text-lg shadow-lg">
+                    <i class="fa-solid font-bold fa-shield-halved"></i>
+                </div>
+                <div>
+                    <h1 class="text-sm font-bold tracking-wider uppercase text-cyan-400">MPI PAI - KELAS IX SMP</h1>
+                    <p class="text-xs text-slate-400 font-medium">ADAB UNDER PRESSURE</p>
+                </div>
+            </div>
+
+            <!-- Stage Progress Indicator Bar -->
+            <nav id="step-nav" class="hidden lg:flex items-center space-x-1 text-xs font-semibold">
+                <button onclick="goToPage(1)" id="nav-btn-1" class="px-3 py-1.5 rounded-lg border border-slate-800 transition hover:border-slate-600 step-active">1. Intro</button>
+                <button onclick="goToPage(2)" id="nav-btn-2" class="px-3 py-1.5 rounded-lg border border-slate-800 transition hover:border-slate-600 text-slate-400">2. Briefing</button>
+                <button onclick="goToPage(3)" id="nav-btn-3" class="px-3 py-1.5 rounded-lg border border-slate-800 transition hover:border-slate-600 text-slate-400">3. Babak 1</button>
+                <button onclick="goToPage(4)" id="nav-btn-4" class="px-3 py-1.5 rounded-lg border border-slate-800 transition hover:border-slate-600 text-slate-400">4. Babak 2</button>
+                <button onclick="goToPage(5)" id="nav-btn-5" class="px-3 py-1.5 rounded-lg border border-slate-800 transition hover:border-slate-600 text-slate-400">5. Babak 3</button>
+                <button onclick="goToPage(6)" id="nav-btn-6" class="px-3 py-1.5 rounded-lg border border-slate-800 transition hover:border-slate-600 text-slate-400">6. Babak 4</button>
+                <button onclick="goToPage(7)" id="nav-btn-7" class="px-3 py-1.5 rounded-lg border border-slate-800 transition hover:border-slate-600 text-slate-400">7. Meja Makan</button>
+                <button onclick="goToPage(8)" id="nav-btn-8" class="px-3 py-1.5 rounded-lg border border-slate-800 transition hover:border-slate-600 text-slate-400">8. Final</button>
+            </nav>
+
+            <!-- Quick Controls for Teacher -->
+            <div class="flex items-center space-x-2">
+                <button onclick="openModal('teacher-guide-modal')" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-cyan-500/30 flex items-center gap-1.5 transition">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                    <span>Petunjuk Guru</span>
+                </button>
+                <button onclick="goToPage(9)" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-teal-600 hover:bg-teal-500 text-white flex items-center gap-1.5 transition shadow-sm">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>Tugas Classroom</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN INTERACTIVE DISPLAY VIEWPORT (16:9 PROPORTIONED STAGE) -->
+    <main class="flex-grow flex items-center justify-center p-3 md:p-6 my-auto">
+        <div class="w-full max-w-6xl min-h-[580px] bg-navy-900 rounded-2xl border border-slate-800 shadow-2xl relative overflow-hidden flex flex-col justify-between">
+
+            <!-- PAGE 1: OPENING HERO -->
+            <section id="page-1" class="page-content p-6 md:p-12 flex flex-col justify-between my-auto min-h-[540px]">
+                <div class="max-w-3xl space-y-6">
+                    <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold">
+                        <i class="fa-solid fa-fire"></i>
+                        <span>Simulasi Dilema & Adab Komunikasi Islam</span>
+                    </div>
+
+                    <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-tight text-white">
+                        ADAB UNDER <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-300">PRESSURE</span>
+                    </h1>
+
+                    <p class="text-xl md:text-2xl font-light text-slate-300 italic border-l-4 border-cyan-400 pl-4 py-1">
+                        "Ketika Pilihan Tidak Sesederhana Benar dan Salah"
+                    </p>
+
+                    <p class="text-base md:text-lg text-slate-400 leading-relaxed max-w-2xl">
+                        Kamu tahu apa yang benar. Tetapi apakah kamu tetap mampu melakukannya ketika situasi menjadi rumit, emosional, dan berisiko?
+                    </p>
+                </div>
+
+                <div class="pt-8 border-t border-slate-800/80 flex flex-wrap gap-4 items-center justify-between">
+                    <div class="flex items-center space-x-3 text-xs text-slate-400">
+                        <span class="flex items-center gap-1"><i class="fa-solid fa-users text-cyan-400"></i> Mode Presentasi PJJ</span>
+                        <span>•</span>
+                        <span class="flex items-center gap-1"><i class="fa-solid fa-comments text-teal-400"></i> Diskusi Interaktif</span>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-3">
+                        <button onclick="openModal('teacher-guide-modal')" class="px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm transition border border-slate-700">
+                            <i class="fa-solid fa-book-open mr-2"></i>Petunjuk Guru
+                        </button>
+                        <button onclick="goToPage(2)" class="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-900 font-bold text-sm shadow-lg glow-cyan transition transform hover:-translate-y-0.5">
+                            MULAI SIMULASI <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PAGE 2: MISSION BRIEFING -->
+            <section id="page-2" class="page-content hidden p-6 md:p-10 flex flex-col justify-between min-h-[540px]">
+                <div>
+                    <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold">02</div>
+                            <h2 class="text-2xl font-bold text-white">MISSION BRIEFING & ATURAN</h2>
+                        </div>
+                        <span class="text-xs text-slate-400">Persiapan Sebelum Simulasi</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                        <!-- Learning Objectives Card -->
+                        <div class="glass-panel p-5 rounded-xl border-l-4 border-cyan-500 space-y-3">
+                            <h3 class="text-sm font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-2">
+                                <i class="fa-solid fa-bullseye"></i> Tujuan Pembelajaran
+                            </h3>
+                            <ul class="space-y-2 text-sm text-slate-300">
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-cyan-400 mt-1 text-xs"></i>
+                                    <span>Mengevaluasi tindakan sosial berdasarkan prinsip adab Islam.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-cyan-400 mt-1 text-xs"></i>
+                                    <span>Memperkirakan dampak & konsekuensi keputusan terhadap orang lain.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-cyan-400 mt-1 text-xs"></i>
+                                    <span>Menyusun respons yang santun, tegas, dan jujur.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fa-solid fa-check text-cyan-400 mt-1 text-xs"></i>
+                                    <span>Menghubungkan situasi nyata dengan ajaran Al-Qur'an & Hadis.</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Rules of Play Card -->
+                        <div class="glass-panel p-5 rounded-xl border-l-4 border-teal-500 space-y-3">
+                            <h3 class="text-sm font-bold text-teal-400 uppercase tracking-wider flex items-center gap-2">
+                                <i class="fa-solid fa-list-check"></i> Alur Pembelajaran PJJ
+                            </h3>
+                            <ol class="space-y-2 text-sm text-slate-300 list-decimal list-inside">
+                                <li class="text-slate-300"><strong class="text-white">Amati:</strong> Guru menampilkan situasi simulasi di layar.</li>
+                                <li class="text-slate-300"><strong class="text-white">Pertimbangkan:</strong> Pikirkan risiko & manfaat tiap opsi.</li>
+                                <li class="text-slate-300"><strong class="text-white">Pilih:</strong> Guru menekan opsi sesuai usulan kelas.</li>
+                                <li class="text-slate-300"><strong class="text-white">Analisis:</strong> Pelajari konsekuensi yang muncul bersama.</li>
+                                <li class="text-slate-300"><strong class="text-white">Kirim:</strong> Argumentasi akhir dikirim lewat Google Classroom.</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <!-- Notice banner -->
+                    <div class="mt-6 p-4 rounded-xl bg-navy-800 border border-slate-700 flex items-center space-x-3 text-xs text-slate-300">
+                        <i class="fa-solid fa-circle-info text-cyan-400 text-lg"></i>
+                        <span><strong>Catatan Guru:</strong> Gunakan fitur obrolan atau mikrofon Google Meet saat meminta pendapat siswa sebelum mengeklik tombol tindakan.</span>
+                    </div>
+                </div>
+
+                <div class="pt-6 border-t border-slate-800 flex justify-between items-center">
+                    <button onclick="goToPage(1)" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm">
+                        <i class="fa-solid fa-arrow-left mr-2"></i>Kembali
+                    </button>
+                    <button onclick="goToPage(3)" class="px-6 py-2.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-bold text-sm shadow-md transition">
+                        LANJUTKAN KE BABAK 1 <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- PAGE 3: BABAK 1 - THE SCREENSHOT -->
+            <section id="page-3" class="page-content hidden p-6 md:p-8 flex flex-col justify-between min-h-[540px]">
+                <div>
+                    <!-- Header Babak -->
+                    <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                        <div class="flex items-center space-x-3">
+                            <span class="px-2.5 py-1 rounded bg-cyan-500/20 text-cyan-400 text-xs font-bold uppercase">Babak 1</span>
+                            <h2 class="text-xl md:text-2xl font-bold text-white">THE SCREENSHOT</h2>
+                        </div>
+                        <span class="text-xs text-slate-400"><i class="fa-regular fa-clock mr-1"></i>Pukul 20.15 WIB - Grup WhatsApp Kelas IX-B</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-4">
+                        <!-- Left side: Digital Chat Interface Mockup -->
+                        <div class="lg:col-span-5 bg-slate-950 rounded-xl p-4 border border-slate-800 shadow-inner flex flex-col justify-between space-y-3 h-[320px] overflow-y-auto">
+                            <div class="text-center text-[10px] text-slate-500 border-b border-slate-800/60 pb-1">
+                                Hari ini • Grup IX-B (32 Anggota)
+                            </div>
+
+                            <!-- Chat Messages Narrative -->
+                            <div class="space-y-2.5 text-xs">
+                                <div class="bg-slate-900 p-2.5 rounded-lg border-l-2 border-rose-500">
+                                    <div class="font-bold text-rose-400 mb-0.5">Rian <span class="text-[9px] font-normal text-slate-500">20.14</span></div>
+                                    <p class="text-slate-300">"Tugas Pak Ahmad emang ga ngotak banget sih, keknya beliau gabut bgt di rumah 🙄🤣"</p>
+                                </div>
+                                <div class="bg-slate-900 p-2.5 rounded-lg border-l-2 border-amber-500">
+                                    <div class="font-bold text-amber-400 mb-0.5">Dina <span class="text-[9px] font-normal text-slate-500">20.15</span></div>
+                                    <p class="text-slate-300">"Eh Rian, ga boleh gitu kali, ga sopan bgt ngomongin guru kek gitu!"</p>
+                                </div>
+                                <div class="bg-slate-900 p-2.5 rounded-lg border-l-2 border-rose-500">
+                                    <div class="font-bold text-rose-400 mb-0.5">Rian <span class="text-[9px] font-normal text-slate-500">20.15</span></div>
+                                    <p class="text-slate-300">"Wkwk becanda doang elah Din, baperan amat lu."</p>
+                                </div>
+                                <div class="bg-cyan-950/40 p-2.5 rounded-lg border border-cyan-800/50">
+                                    <div class="font-bold text-cyan-400 mb-0.5"><i class="fa-solid fa-triangle-exclamation mr-1"></i>SITUASI KRITIS:</div>
+                                    <p class="text-cyan-200">Seseorang telah men-screenshot pesan Rian dan menyebarkannya ke grup lain tanpa izin.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right side: Choices & Consequence Display -->
+                        <div class="lg:col-span-7 flex flex-col justify-between space-y-3">
+                            <div id="b1-question-box">
+                                <h3 class="text-sm font-bold text-slate-200 mb-2">
+                                    <i class="fa-solid fa-circle-question text-cyan-400 mr-1.5"></i>
+                                    Jika kamu berada di grup tersebut saat itu, apa tindakan pertamamu?
+                                </h3>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                                    <button onclick="selectB1('A')" id="btn-b1-A" class="p-3 rounded-lg bg-navy-800 hover:bg-slate-800 border border-slate-700 text-left transition hover:border-cyan-500">
+                                        <strong class="text-cyan-400 block mb-1">Opsi A</strong>
+                                        Menegur Rian secara terbuka di grup agar semua orang paham kesalahannya.
+                                    </button>
+
+                                    <button onclick="selectB1('B')" id="btn-b1-B" class="p-3 rounded-lg bg-navy-800 hover:bg-slate-800 border border-slate-700 text-left transition hover:border-cyan-500">
+                                        <strong class="text-teal-400 block mb-1">Opsi B</strong>
+                                        Menghubungi Rian via PC (Personal Chat) untuk memintanya mengklarifikasi & minta maaf.
+                                    </button>
+
+                                    <button onclick="selectB1('C')" id="btn-b1-C" class="p-3 rounded-lg bg-navy-800 hover:bg-slate-800 border border-slate-700 text-left transition hover:border-cyan-500">
+                                        <strong class="text-amber-400 block mb-1">Opsi C</strong>
+                                        Diam saja agar tidak terseret dalam masalah teman.
+                                    </button>
+
+                                    <button onclick="selectB1('D')" id="btn-b1-D" class="p-3 rounded-lg bg-navy-800 hover:bg-slate-800 border border-slate-700 text-left transition hover:border-cyan-500">
+                                        <strong class="text-rose-400 block mb-1">Opsi D</strong>
+                                        Mencoba menghentikan penyebaran SS di grup luar sambil menenangkan situasi.
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Dynamic Consequence Output Panel -->
+                            <div id="b1-consequence-panel" class="hidden p-4 rounded-xl bg-slate-900 border border-slate-700 text-xs space-y-2">
+                                <div class="flex items-center justify-between border-b border-slate-800 pb-1.5">
+                                    <span id="b1-title" class="font-bold text-cyan-300"></span>
+                                    <button onclick="resetB1()" class="text-[10px] text-slate-400 hover:text-white underline">
+                                        <i class="fa-solid fa-rotate-left mr-1"></i>Ganti Pilihan
+                                    </button>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-2 text-[11px] pt-1">
+                                    <div class="bg-emerald-950/40 p-2 rounded border border-emerald-800/40">
+                                        <strong class="text-emerald-400 block mb-0.5"><i class="fa-solid fa-plus-circle mr-1"></i>Manfaat:</strong>
+                                        <p id="b1-benefit" class="text-slate-300"></p>
+                                    </div>
+                                    <div class="bg-rose-950/40 p-2 rounded border border-rose-800/40">
+                                        <strong class="text-rose-400 block mb-0.5"><i class="fa-solid fa-triangle-exclamation mr-1"></i>Risiko:</strong>
+                                        <p id="b1-risk" class="text-slate-300"></p>
+                                    </div>
+                                </div>
+                                <div class="bg-slate-800/80 p-2 rounded text-slate-300 italic border-l-2 border-amber-400">
+                                    <strong class="text-amber-400 font-semibold not-italic">Isu Belum Tuntas: </strong>
+                                    <span id="b1-unresolved"></span>
+                                </div>
+                            </div>
+
+                            <!-- Discussion prompts for Teacher -->
+                            <div class="p-3 rounded-lg bg-cyan-950/30 border border-cyan-800/40 text-xs space-y-1">
+                                <div class="font-bold text-cyan-400 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-comments"></i> Panduan Diskusi Kelas (Guru):
+                                </div>
+                                <ul class="list-disc list-inside text-slate-300 space-y-0.5 text-[11px]">
+                                    <li>Apakah niat "bercanda" membenarkan kata-kata yang merendahkan?</li>
+                                    <li>Mana yang harus diprioritaskan lebih dulu: menghentikan penyebaran SS atau menegur Rian?</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer nav -->
+                <div class="pt-4 border-t border-slate-800 flex justify-between items-center">
+                    <button onclick="goToPage(2)" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm">
+                        <i class="fa-solid fa-arrow-left mr-2"></i>Kembali
+                    </button>
+                    <button onclick="goToPage(4)" class="px-6 py-2.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-bold text-sm shadow-md transition">
+                        LANJUT KE BABAK 2 <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- PAGE 4: BABAK 2 - FIVE-MINUTE CRISIS -->
+            <section id="page-4" class="page-content hidden p-6 md:p-8 flex flex-col justify-between min-h-[540px]">
+                <div>
+                    <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                        <div class="flex items-center space-x-3">
+                            <span class="px-2.5 py-1 rounded bg-amber-500/20 text-amber-400 text-xs font-bold uppercase">Babak 2</span>
+                            <h2 class="text-xl md:text-2xl font-bold text-white">FIVE-MINUTE CRISIS</h2>
+                        </div>
+                        <span class="text-xs text-rose-400 font-semibold"><i class="fa-solid fa-triangle-exclamation mr-1"></i>Eskalasi Situasi</span>
+                    </div>
+
+                    <!-- Narrative Context Card -->
+                    <div class="mt-4 p-4 rounded-xl bg-gradient-to-r from-slate-900 to-navy-800 border border-slate-700">
+                        <p class="text-sm text-slate-200 leading-relaxed italic">
+                            "Lima menit kemudian, tangkapan layar (screenshot) mulai tersebar luas di grup angkatan. Ada teman yang menambahkan komentar pedas, ada yang ikut mengejek Rian, dan ada pula yang menuduh Rian tanpa tahu konteks utuhnya."
+                        </p>
+                    </div>
+
+                    <!-- 3 Critical Strategic Goals -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 my-4">
+                        <div class="p-3 rounded-lg bg-slate-900/80 border border-cyan-500/30 text-xs">
+                            <strong class="text-cyan-400 block mb-1">1. Hentikan Disinformasi</strong>
+                            <p class="text-slate-400">Mencegah informasi sepotong-sepotong makin memanas.</p>
+                        </div>
+                        <div class="p-3 rounded-lg bg-slate-900/80 border border-teal-500/30 text-xs">
+                            <strong class="text-teal-400 block mb-1">2. Tabayyun (Verifikasi)</strong>
+                            <p class="text-slate-400">Memastikan fakta sebelum membuat tuduhan liar.</p>
+                        </div>
+                        <div class="p-3 rounded-lg bg-slate-900/80 border border-amber-500/30 text-xs">
+                            <strong class="text-amber-400 block mb-1">3. Lindungi Martabat</strong>
+                            <p class="text-slate-400">Menjaga privasi tanpa memperkeruh suasana.</p>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Strategy Options -->
+                    <div class="space-y-2">
+                        <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider">Pilih Lanjutan Strategi Tindakan:</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                            <button onclick="selectB2(1)" id="btn-b2-1" class="p-3 rounded-lg bg-navy-800 hover:bg-slate-800 border border-slate-700 text-left transition">
+                                <strong class="text-cyan-400 block">1. Klarifikasi Terbuka Ringkas</strong>
+                                Meminta stop sebar SS & mengajak pihak terkait tabayyun langsung.
+                            </button>
+                            <button onclick="selectB2(2)" id="btn-b2-2" class="p-3 rounded-lg bg-navy-800 hover:bg-slate-800 border border-slate-700 text-left transition">
+                                <strong class="text-amber-400 block">2. Debat Panjang di Grup</strong>
+                                Langsung membalas semua tuduhan di grup dengan pembelaan panjang lebar.
+                            </button>
+                            <button onclick="selectB2(3)" id="btn-b2-3" class="p-3 rounded-lg bg-navy-800 hover:bg-slate-800 border border-slate-700 text-left transition">
+                                <strong class="text-teal-400 block">3. Laporkan ke Wali Kelas/Guru PAI</strong>
+                                Menghubungi guru privat untuk mediasi sebelum konflik meluas.
+                            </button>
+                            <button onclick="selectB2(4)" id="btn-b2-4" class="p-3 rounded-lg bg-navy-800 hover:bg-slate-800 border border-slate-700 text-left transition">
+                                <strong class="text-slate-400 block">4. Hapus Chat & Pura-Pura Lupa</strong>
+                                Menarik diri sepenuhnya dan berpura-pura tidak paham apa yang terjadi.
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Consequence Output Display B2 -->
+                    <div id="b2-consequence-box" class="hidden mt-3 p-3.5 rounded-xl bg-slate-950 border border-slate-700 text-xs space-y-1">
+                        <div class="font-bold text-cyan-300 flex items-center justify-between">
+                            <span id="b2-title"></span>
+                            <button onclick="resetB2()" class="text-[10px] text-slate-400 hover:text-white underline">
+                                <i class="fa-solid fa-rotate-left mr-1"></i>Ganti Pilihan
+                            </button>
+                        </div>
+                        <p id="b2-desc" class="text-slate-300 text-[11px]"></p>
+                    </div>
+                </div>
+
+                <!-- Footer nav -->
+                <div class="pt-4 border-t border-slate-800 flex justify-between items-center">
+                    <button onclick="goToPage(3)" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm">
+                        <i class="fa-solid fa-arrow-left mr-2"></i>Kembali
+                    </button>
+                    <button onclick="goToPage(5)" class="px-6 py-2.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-bold text-sm shadow-md transition">
+                        LANJUT KE BABAK 3 <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- PAGE 5: BABAK 3 - THE RESPONSE CHALLENGE -->
+            <section id="page-5" class="page-content hidden p-6 md:p-8 flex flex-col justify-between min-h-[540px]">
+                <div>
+                    <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                        <div class="flex items-center space-x-3">
+                            <span class="px-2.5 py-1 rounded bg-teal-500/20 text-teal-400 text-xs font-bold uppercase">Babak 3</span>
+                            <h2 class="text-xl md:text-2xl font-bold text-white">THE RESPONSE CHALLENGE</h2>
+                        </div>
+                        <span class="text-xs text-teal-400 font-semibold"><i class="fa-solid fa-pen-nib mr-1"></i>Tantangan Pesan Meredakan Konflik</span>
+                    </div>
+
+                    <div class="mt-4 text-center max-w-xl mx-auto space-y-2">
+                        <span class="inline-block px-3 py-1 rounded-full bg-slate-800 text-cyan-400 font-mono text-xs font-bold border border-slate-700">
+                            "60 Words. One Difficult Message."
+                        </span>
+                        <h3 class="text-lg font-bold text-slate-100">Menyusun Pesan Penyelesaian Konflik</h3>
+                        <p class="text-xs text-slate-400">
+                            Siswa diminta menyusun satu pesan singkat untuk grup kelas demi meredakan suasana tanpa mempermalukan siapapun.
+                        </p>
+                    </div>
+
+                    <!-- Criteria Breakdown Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+                        <div class="glass-panel p-4 rounded-xl border-l-4 border-cyan-400 space-y-2">
+                            <h4 class="text-xs font-bold text-cyan-400 uppercase tracking-wider">
+                                <i class="fa-solid fa-circle-check mr-1"></i> Kriteria Pesan Beradab (Maks 60 Kata):
+                            </h4>
+                            <ul class="text-xs text-slate-300 space-y-1.5 list-disc list-inside">
+                                <li><strong>Santun & Tegas:</strong> Tidak mengandung celaan atau nada menyindir.</li>
+                                <li><strong>Empati:</strong> Mengakui perasaan pihak yang tersinggung.</li>
+                                <li><strong>Konkret:</strong> Mengajak langkah perbaikan yang nyata (tabayyun).</li>
+                                <li><strong>Objektif:</strong> Tidak membuat tuduhan tanpa bukti.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Format Mockup Sample (Non-Copy Ideal) -->
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 text-xs">
+                            <div class="flex justify-between items-center text-slate-500 border-b border-slate-800 pb-1">
+                                <span>Contoh Struktur Kerangka Pesan</span>
+                                <i class="fa-solid fa-message"></i>
+                            </div>
+                            <p class="text-slate-400 italic">
+                                "[Salam & Ajakan tenang] + [Pengakuan masalah secara bijak] + [Langkah konkret tabayyun / penyesuaian] + [Penutup positif]"
+                            </p>
+                            <div class="p-2 rounded bg-navy-900 text-slate-300 text-[11px] border border-slate-800">
+                                💡 <em>Catatan: Siswa menyusun pesan ini secara mandiri di lembar Google Classroom, bukan di dalam aplikasi ini.</em>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 rounded-lg bg-teal-950/40 border border-teal-800/40 text-xs text-slate-300 text-center">
+                        <i class="fa-solid fa-bullhorn text-teal-400 mr-2"></i>
+                        <strong>Instruksi Guru:</strong> Mintalah 2-3 siswa membacakan draf pesan mereka secara lisan di Google Meet sebelum melanjutkan.
+                    </div>
+                </div>
+
+                <!-- Footer nav -->
+                <div class="pt-4 border-t border-slate-800 flex justify-between items-center">
+                    <button onclick="goToPage(4)" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm">
+                        <i class="fa-solid fa-arrow-left mr-2"></i>Kembali
+                    </button>
+                    <button onclick="goToPage(6)" class="px-6 py-2.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-bold text-sm shadow-md transition">
+                        LANJUT KE BABAK 4 <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- PAGE 6: BABAK 4 - THE ETHICAL DILEMMA & ISLAMIC PRINCIPLES -->
+            <section id="page-6" class="page-content hidden p-6 md:p-8 flex flex-col justify-between min-h-[540px]">
+                <div>
+                    <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                        <div class="flex items-center space-x-3">
+                            <span class="px-2.5 py-1 rounded bg-purple-500/20 text-purple-400 text-xs font-bold uppercase">Babak 4</span>
+                            <h2 class="text-xl md:text-2xl font-bold text-white">THE ETHICAL DILEMMA</h2>
+                        </div>
+                        <span class="text-xs text-purple-400 font-semibold"><i class="fa-solid fa-scale-balanced mr-1"></i>Penalaran Moral Islam</span>
+                    </div>
+
+                    <!-- Big Dilemma Statement -->
+                    <div class="mt-4 p-4 rounded-xl bg-purple-950/30 border border-purple-800/40 text-center">
+                        <p class="text-sm md:text-base text-purple-200 font-medium italic">
+                            "Jika berkata jujur berpotensi mempermalukan teman, sedangkan diam dapat membuat orang lain terus tersakiti, bagaimana kamu menentukan tindakan yang paling beradab?"
+                        </p>
+                    </div>
+
+                    <!-- Two Sides Comparison Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+                        <div class="p-4 rounded-xl bg-slate-900 border-t-2 border-cyan-400 space-y-2">
+                            <h3 class="text-xs font-bold text-cyan-400 uppercase flex items-center gap-1.5">
+                                <i class="fa-solid fa-shield-cat"></i> Sisi A: Kejujuran & Tanggung Jawab
+                            </h3>
+                            <p class="text-xs text-slate-300">
+                                Menyampaikan kebenaran adalah kewajiban. Menutupi kesalahan yang merugikan orang lain bukan bentuk kesetiaan, melainkan pembiaran.
+                            </p>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-900 border-t-2 border-teal-400 space-y-2">
+                            <h3 class="text-xs font-bold text-teal-400 uppercase flex items-center gap-1.5">
+                                <i class="fa-solid fa-heart"></i> Sisi B: Menjaga Kehormatan & Perasaan
+                            </h3>
+                            <p class="text-xs text-slate-300">
+                                Mengoreksi kesalahan harus dilakukan dengan cara menasihati secara rahasia (Sitrul 'Awb), bukan mempermalukannya di depan publik.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Islamic Anchors / Quran & Hadith References -->
+                    <div class="p-4 rounded-xl bg-navy-800 border border-slate-700 space-y-2">
+                        <h3 class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fa-solid fa-book-quran"></i> Landasan Ajaran Islam (Prinsip Utama):
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-slate-300">
+                            <div class="bg-slate-900 p-2.5 rounded border border-slate-800">
+                                <strong class="text-cyan-400 block mb-1">1. Tabayyun (Verifikasi)</strong>
+                                <span class="text-[11px] text-slate-400 block">QS. Al-Hujurat [49]: 6</span>
+                                Memeriksa kebenaran berita sebelum bertindak agar tidak menimpa suatu kaum dengan kecerobohan.
+                            </div>
+                            <div class="bg-slate-900 p-2.5 rounded border border-slate-800">
+                                <strong class="text-teal-400 block mb-1">2. Berkata Baik / Diam</strong>
+                                <span class="text-[11px] text-slate-400 block">HR. Bukhari & Muslim</span>
+                                "Barangsiapa beriman kepada Allah dan hari akhir, hendaklah ia berkata baik atau diam."
+                            </div>
+                            <div class="bg-slate-900 p-2.5 rounded border border-slate-800">
+                                <strong class="text-amber-400 block mb-1">3. Menjaga Kehormatan</strong>
+                                <span class="text-[11px] text-slate-400 block">QS. Al-Hujurat [49]: 12</span>
+                                Menjauhi prasangka buruk, tidak mencari-cari keburukan, dan tidak menggunjing (ghibah).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer nav -->
+                <div class="pt-4 border-t border-slate-800 flex justify-between items-center">
+                    <button onclick="goToPage(5)" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm">
+                        <i class="fa-solid fa-arrow-left mr-2"></i>Kembali
+                    </button>
+                    <button onclick="goToPage(7)" class="px-6 py-2.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-bold text-sm shadow-md transition">
+                        LANJUT KE MEJA MAKAN <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- PAGE 7: BONUS ROUND - ADAB DI MEJA MAKAN -->
+            <section id="page-7" class="page-content hidden p-6 md:p-8 flex flex-col justify-between min-h-[540px]">
+                <div>
+                    <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                        <div class="flex items-center space-x-3">
+                            <span class="px-2.5 py-1 rounded bg-amber-500/20 text-amber-400 text-xs font-bold uppercase">Bonus Round</span>
+                            <h2 class="text-xl md:text-2xl font-bold text-white">ADAB DI MEJA MAKAN</h2>
+                        </div>
+                        <span class="text-xs text-amber-400 font-semibold"><i class="fa-solid fa-utensils mr-1"></i>Integrasi Adab Makan & Lisan</span>
+                    </div>
+
+                    <!-- Dining Scenario Card -->
+                    <div class="mt-4 p-4 rounded-xl bg-slate-900 border border-slate-700 space-y-2">
+                        <div class="flex items-center space-x-2 text-amber-400 text-xs font-bold">
+                            <i class="fa-solid fa-utensils"></i>
+                            <span>Skenario Meja Makan Makan Bersama:</span>
+                        </div>
+                        <p class="text-xs md:text-sm text-slate-200 leading-relaxed italic">
+                            "Kamu sedang makan bersama teman-teman di kantin sekolah. Seseorang mengejek cara makan salah satu temannya hingga ia merasa sangat malu dan menunduk. Teman-teman lain mulai tertawa. Kamu ingin menolong, tetapi tidak ingin mempermalukan siapapun lebih jauh."
+                        </p>
+                    </div>
+
+                    <!-- Options for Dining Adab Crossover -->
+                    <div class="mt-4 space-y-2">
+                        <h3 class="text-xs font-bold text-slate-300 uppercase">Pilih Respons Interaktif:</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                            <button onclick="selectDining('A')" id="btn-dining-A" class="p-3 rounded-lg bg-navy-800 hover:bg-slate-800 border border-slate-700 text-left transition">
+                                <strong class="text-rose-400 block mb-1">Opsi A: Ejek Balik</strong>
+                                Menegur pengejek dengan nada menyindir cara makannya sendiri agar ia merasakan hal serupa.
+                            </button>
+
+                            <button onclick="selectDining('B')" id="btn-dining-B" class="p-3 rounded-lg bg-navy-800 hover:bg-slate-800 border border-slate-700 text-left transition">
+                                <strong class="text-slate-400 block mb-1">Opsi B: Diam & Pasrah</strong>
+                                Diam saja dan berharap situasi mereda dengan sendirinya tanpa campur tangan.
+                            </button>
+
+                            <button onclick="selectDining('C')" id="btn-dining-C" class="p-3 rounded-lg bg-navy-800 hover:bg-slate-800 border border-slate-700 text-left transition">
+                                <strong class="text-emerald-400 block mb-1">Opsi C: Hentikan Santun & Alihkan</strong>
+                                Mengalihkan pembicaraan dengan santun, membela teman tanpa memojokkan pengejek di depan umum.
+                            </button>
+
+                            <button onclick="selectDining('D')" id="btn-dining-D" class="p-3 rounded-lg bg-navy-800 hover:bg-slate-800 border border-slate-700 text-left transition">
+                                <strong class="text-amber-400 block mb-1">Opsi D: Bahas di Grup Nanti</strong>
+                                Membiarkan terjadi saat itu, lalu mengkritik kejadian tersebut di grup chat kelas malam harinya.
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Consequence Output Display Dining -->
+                    <div id="dining-consequence-box" class="hidden mt-3 p-3.5 rounded-xl bg-slate-950 border border-slate-700 text-xs space-y-1">
+                        <div class="font-bold text-amber-300 flex items-center justify-between">
+                            <span id="dining-title"></span>
+                            <button onclick="resetDining()" class="text-[10px] text-slate-400 hover:text-white underline">
+                                <i class="fa-solid fa-rotate-left mr-1"></i>Ganti Pilihan
+                            </button>
+                        </div>
+                        <p id="dining-desc" class="text-slate-300 text-[11px]"></p>
+                    </div>
+                </div>
+
+                <!-- Footer nav -->
+                <div class="pt-4 border-t border-slate-800 flex justify-between items-center">
+                    <button onclick="goToPage(6)" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm">
+                        <i class="fa-solid fa-arrow-left mr-2"></i>Kembali
+                    </button>
+                    <button onclick="goToPage(8)" class="px-6 py-2.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-bold text-sm shadow-md transition">
+                        LANJUT KE FINAL MISSION <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- PAGE 8: FINAL MISSION - DEFEND YOUR DECISION -->
+            <section id="page-8" class="page-content hidden p-6 md:p-10 flex flex-col justify-between my-auto min-h-[540px]">
+                <div class="max-w-3xl mx-auto text-center space-y-6">
+                    <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold">
+                        <i class="fa-solid fa-flag-checkered"></i>
+                        <span>Refleksi Penutup Pembelajaran</span>
+                    </div>
+
+                    <h2 class="text-2xl md:text-3xl font-black text-white">
+                        "Keputusan yang beradab bukan hanya tentang niat baik, tetapi juga tentang cara, dampak, dan tanggung jawab. Setujukah kamu?"
+                    </h2>
+
+                    <!-- Stance Buttons for Classroom Discussion -->
+                    <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+                        <button onclick="selectStance('setuju')" id="btn-stance-1" class="px-5 py-3 rounded-xl bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/50 text-emerald-300 text-xs font-bold transition">
+                            <i class="fa-solid fa-thumbs-up mr-2"></i>SAYA SETUJU
+                        </button>
+                        <button onclick="selectStance('tidak')" id="btn-stance-2" class="px-5 py-3 rounded-xl bg-rose-950/80 hover:bg-rose-900 border border-rose-500/50 text-rose-300 text-xs font-bold transition">
+                            <i class="fa-solid fa-thumbs-down mr-2"></i>TIDAK SEPENUHNYA SETUJU
+                        </button>
+                        <button onclick="selectStance('ragu')" id="btn-stance-3" class="px-5 py-3 rounded-xl bg-amber-950/80 hover:bg-amber-900 border border-amber-500/50 text-amber-300 text-xs font-bold transition">
+                            <i class="fa-solid fa-question mr-2"></i>MASIH RAGU
+                        </button>
+                    </div>
+
+                    <!-- Stance Result Reflection Prompt -->
+                    <div id="stance-result-box" class="hidden p-4 rounded-xl bg-slate-900 border border-slate-700 text-xs text-slate-300 space-y-2 text-left">
+                        <div class="font-bold text-cyan-400 flex items-center gap-2">
+                            <i class="fa-solid fa-lightbulb"></i> Pertanyaan Lanjutan Untuk Diskusi:
+                        </div>
+                        <p id="stance-text" class="text-slate-300 leading-relaxed"></p>
+                    </div>
+
+                    <!-- Closing Quote Card -->
+                    <div class="p-4 rounded-xl bg-gradient-to-r from-navy-800 to-slate-900 border border-cyan-500/30">
+                        <p class="text-sm font-semibold text-cyan-300 italic">
+                            "Adab terlihat bukan hanya saat keadaan mudah, tetapi saat kita harus memilih tindakan di tengah tekanan."
+                        </p>
+                    </div>
+                </div>
+
+                <div class="pt-6 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
+                    <button onclick="goToPage(1)" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm">
+                        <i class="fa-solid fa-rotate-right mr-2"></i>Ulangi Simulasi
+                    </button>
+                    <button onclick="goToPage(9)" class="px-6 py-2.5 rounded-lg bg-teal-500 hover:bg-teal-400 text-slate-900 font-bold text-sm shadow-md transition">
+                        PETUNJUK GOOGLE CLASSROOM <i class="fa-solid fa-graduation-cap ml-2"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- PAGE 9: PETUNJUK PENGUMPULAN GOOGLE CLASSROOM -->
+            <section id="page-9" class="page-content hidden p-6 md:p-8 flex flex-col justify-between min-h-[540px]">
+                <div>
+                    <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                        <div class="flex items-center space-x-3">
+                            <span class="px-2.5 py-1 rounded bg-teal-500/20 text-teal-400 text-xs font-bold uppercase">Panduan Guru</span>
+                            <h2 class="text-xl md:text-2xl font-bold text-white">PENGUMPULAN TUGAS CLASSROOM</h2>
+                        </div>
+                        <button onclick="copyAssignmentPrompt()" class="px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-slate-900 text-xs font-bold transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-copy"></i> Copy Teks Tugas Guru
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-4">
+                        <!-- Left: Student Instructions Template -->
+                        <div class="glass-panel p-4 rounded-xl border border-slate-700 space-y-3">
+                            <h3 class="text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-2">
+                                <i class="fa-solid fa-clipboard-list"></i> Deskripsi Tugas Siswa (Untuk Di-copy ke GC):
+                            </h3>
+                            <div class="bg-slate-950 p-3 rounded-lg text-slate-300 text-xs font-mono leading-relaxed space-y-2 max-h-[260px] overflow-y-auto border border-slate-800" id="assignment-prompt-text">
+                                <p class="font-bold text-white">Judul Tugas: Adab Under Pressure: My Decision, My Responsibility</p>
+                                <p><strong>Instruksi Siswa:</strong></p>
+                                <p>1. Pilih satu keputusan dari simulasi tadi dan jelaskan alasanmu secara logis.</p>
+                                <p>2. Jelaskan dua kemungkinan konsekuensi dari keputusan tersebut (positif & negatif).</p>
+                                <p>3. Susun satu pesan maksimal 60 kata untuk meredakan konflik di grup kelas.</p>
+                                <p>4. Jawab dilema etika dengan alasan yang logis dan cantumkan satu prinsip ajaran Islam yang relevan (misal: Tabayyun / Berkata Baik).</p>
+                                <p>5. Jelaskan bagaimana prinsip yang sama dapat diterapkan dalam adab makan dan minum saat bersama teman.</p>
+                            </div>
+                        </div>
+
+                        <!-- Right: Rubrik Penilaian Guru (100 Poin) -->
+                        <div class="glass-panel p-4 rounded-xl border border-slate-700 space-y-3">
+                            <h3 class="text-xs font-bold text-teal-400 uppercase tracking-wider flex items-center gap-2">
+                                <i class="fa-solid fa-square-poll-vertical"></i> Rubrik Penilaian Guru (Total 100 Poin)
+                            </h3>
+                            <div class="space-y-2 text-xs">
+                                <div class="p-2.5 rounded bg-slate-900 border border-slate-800 flex justify-between items-center">
+                                    <div>
+                                        <strong class="text-slate-200 block">Kualitas Alasan & Argumentasi</strong>
+                                        <span class="text-[10px] text-slate-400">Kedalaman penalaran moral & pertimbangan situasi.</span>
+                                    </div>
+                                    <span class="px-2 py-1 rounded bg-cyan-950 text-cyan-400 font-bold border border-cyan-800">30 Poin</span>
+                                </div>
+                                <div class="p-2.5 rounded bg-slate-900 border border-slate-800 flex justify-between items-center">
+                                    <div>
+                                        <strong class="text-slate-200 block">Analisis Konsekuensi</strong>
+                                        <span class="text-[10px] text-slate-400">Kemampuan memperkirakan dampak diri & orang lain.</span>
+                                    </div>
+                                    <span class="px-2 py-1 rounded bg-teal-950 text-teal-400 font-bold border border-teal-800">25 Poin</span>
+                                </div>
+                                <div class="p-2.5 rounded bg-slate-900 border border-slate-800 flex justify-between items-center">
+                                    <div>
+                                        <strong class="text-slate-200 block">Pesan Penyelesaian Konflik</strong>
+                                        <span class="text-[10px] text-slate-400">Kesantunan, ketegasan, & ketaatan batas 60 kata.</span>
+                                    </div>
+                                    <span class="px-2 py-1 rounded bg-amber-950 text-amber-400 font-bold border border-amber-800">25 Poin</span>
+                                </div>
+                                <div class="p-2.5 rounded bg-slate-900 border border-slate-800 flex justify-between items-center">
+                                    <div>
+                                        <strong class="text-slate-200 block">Refleksi & Prinsip Islam</strong>
+                                        <span class="text-[10px] text-slate-400">Kesesuaian dengan QS/Hadis & adab makan/lisan.</span>
+                                    </div>
+                                    <span class="px-2 py-1 rounded bg-purple-950 text-purple-400 font-bold border border-purple-800">20 Poin</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer nav -->
+                <div class="pt-4 border-t border-slate-800 flex justify-between items-center">
+                    <button onclick="goToPage(8)" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm">
+                        <i class="fa-solid fa-arrow-left mr-2"></i>Kembali
+                    </button>
+                    <button onclick="goToPage(1)" class="px-6 py-2.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-bold text-sm shadow-md transition">
+                        KEMBALI KE BERANDA <i class="fa-solid fa-house ml-2"></i>
+                    </button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- MODAL: PETUNJUK GURU PJJ -->
+    <div id="teacher-guide-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-navy-900 border border-slate-700 rounded-2xl max-w-2xl w-full p-6 shadow-2xl space-y-4 relative">
+            <button onclick="closeModal('teacher-guide-modal')" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="flex items-center space-x-3 border-b border-slate-800 pb-3">
+                <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-lg">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-white">Petunjuk Guru - Modul Pembelajaran PJJ</h3>
+                    <p class="text-xs text-slate-400">Media Presentasi Interaktif PAI Kelas IX SMP</p>
+                </div>
+            </div>
+
+            <div class="space-y-3 text-xs text-slate-300 max-h-[380px] overflow-y-auto pr-2">
+                <div class="p-3 rounded-lg bg-slate-950 border border-slate-800 space-y-1">
+                    <strong class="text-cyan-400 block font-semibold">1. Peran Guru Saat PJJ (Google Meet / Zoom):</strong>
+                    <p>MPI ini sepenuhnya dikendalikan oleh Guru melalui fitur *Share Screen*. Siswa **TIDAK** perlu mengetik jawaban di dalam web aplikasi ini.</p>
+                </div>
+
+                <div class="p-3 rounded-lg bg-slate-950 border border-slate-800 space-y-1">
+                    <strong class="text-teal-400 block font-semibold">2. Strategi Memandu Simulasi:</strong>
+                    <p>Saat narasi dilema muncul, ajak siswa memberikan voting singkat via Chat Box GMeet atau mic. Setelah itu, tekan opsi yang dipilih dan bedah konsekuensinya bersama-sama.</p>
+                </div>
+
+                <div class="p-3 rounded-lg bg-slate-950 border border-slate-800 space-y-1">
+                    <strong class="text-amber-400 block font-semibold">3. Integrasi Dua Bab:</strong>
+                    <p>Media mengintegrasikan **Adab Berkomunikasi/Lisan** dan **Adab Makan & Minum**. Tekankan pada siswa bahwa nilai etika Islam bersumber dari prinsip empati, menjaga kehormatan, dan tanggung jawab yang konsisten.</p>
+                </div>
+
+                <div class="p-3 rounded-lg bg-slate-950 border border-slate-800 space-y-1">
+                    <strong class="text-purple-400 block font-semibold">4. Pengumpulan Tugas Akhir:</strong>
+                    <p>Gunakan tombol *"Copy Teks Tugas Guru"* pada menu Bab 9 untuk menyalin perintah tugas langsung ke Google Classroom kelas Anda.</p>
+                </div>
+            </div>
+
+            <div class="pt-3 border-t border-slate-800 flex justify-end">
+                <button onclick="closeModal('teacher-guide-modal')" class="px-5 py-2 rounded-lg bg-cyan-500 text-slate-900 font-bold text-xs hover:bg-cyan-400">
+                    Mengerti & Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER INFO -->
+    <footer class="w-full text-center py-3 text-[11px] text-slate-500 border-t border-slate-900 bg-slate-950">
+        MPI PAI Kelas IX SMP • Adab Under Pressure • Disiapkan untuk Moda Presentasi PJJ Guru
+    </footer>
+
+    <!-- JAVASCRIPT APP LOGIC -->
+    <script>
+        // State Management
+        let currentPage = 1;
+
+        // Navigation Controller
+        function goToPage(pageNum) {
+            currentPage = pageNum;
+            
+            // Hide all pages
+            document.querySelectorAll('.page-content').forEach(el => {
+                el.classList.add('hidden');
+            });
+
+            // Show selected page
+            const targetPage = document.getElementById(`page-${pageNum}`);
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+            }
+
+            // Update step navbar highlights
+            for (let i = 1; i <= 8; i++) {
+                const navBtn = document.getElementById(`nav-btn-${i}`);
+                if (navBtn) {
+                    if (i === pageNum) {
+                        navBtn.className = "px-3 py-1.5 rounded-lg border border-cyan-500 step-active";
+                    } else {
+                        navBtn.className = "px-3 py-1.5 rounded-lg border border-slate-800 transition hover:border-slate-600 text-slate-400";
+                    }
+                }
+            }
+
+            // Scroll to top of main box smoothly
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // BABAK 1 LOGIC
+        const b1Data = {
+            'A': {
+                title: "Opsi A: Menegur Terbuka di Grup Kelas",
+                benefit: "Menegaskan dengan jelas batas perilaku yang tidak pantas agar anggota grup lain menyadari kesalahan tersebut.",
+                risk: "Berisiko tinggi mempermalukan Rian di depan umum, memicu sikap defensif/marah, dan memperkeruh suasana.",
+                unresolved: "SS yang sudah telanjur disebar di grup lain belum tertangani dan tetap berisiko meluas."
+            },
+            'B': {
+                title: "Opsi B: Menghubungi Personal Chat (PC)",
+                benefit: "Memberi ruang aman bagi Rian untuk menyadari kesalahan tanpa merasa dipojokkan, sesuai prinsip kesantunan.",
+                risk: "Respons Rian mungkin lambat dan tidak langsung menghentikan kepanikan anggota grup lain.",
+                unresolved: "SS yang beredar di luar grup masih berpotensi menyebar jika Rian tidak segera mengambil tindakan."
+            },
+            'C': {
+                title: "Opsi C: Diam & Tidak Terlibat",
+                benefit: "Menghindarkan diri dari potensi pusaran konflik antar teman.",
+                risk: "Terkesan membiarkan norma yang salah dan meninggalkan korban perundungan/pihak yang tersinggung tanpa dukungan.",
+                unresolved: "Konflik meluas dan masalah utama sama sekali tidak bergeser menuju penyelesaian."
+            },
+            'D': {
+                title: "Opsi D: Mencegah Penyebaran SS & Menenangkan Teman",
+                benefit: "Fokus langsung membatasi bahaya dampak eksternal serta melindungi kehormatan teman yang terdampak.",
+                risk: "Membutuhkan keberanian ekstra dan kerja sama beberapa teman agar instruksi didengar.",
+                unresolved: "Perilaku Rian awal tetap perlu diklarifikasi dan diperbaiki setelah situasi terkendali."
+            }
+        };
+
+        function selectB1(option) {
+            const data = b1Data[option];
+            if (!data) return;
+
+            document.getElementById('b1-title').innerText = data.title;
+            document.getElementById('b1-benefit').innerText = data.benefit;
+            document.getElementById('b1-risk').innerText = data.risk;
+            document.getElementById('b1-unresolved').innerText = data.unresolved;
+
+            document.getElementById('b1-consequence-panel').classList.remove('hidden');
+
+            // Highlight selected button
+            ['A','B','C','D'].forEach(opt => {
+                const btn = document.getElementById(`btn-b1-${opt}`);
+                if (opt === option) {
+                    btn.classList.add('border-cyan-400', 'bg-cyan-950/40');
+                } else {
+                    btn.classList.remove('border-cyan-400', 'bg-cyan-950/40');
+                }
+            });
+        }
+
+        function resetB1() {
+            document.getElementById('b1-consequence-panel').classList.add('hidden');
+            ['A','B','C','D'].forEach(opt => {
+                document.getElementById(`btn-b1-${opt}`).classList.remove('border-cyan-400', 'bg-cyan-950/40');
+            });
+        }
+
+        // BABAK 2 LOGIC
+        const b2Data = {
+            1: {
+                title: "Opsi 1: Klarifikasi Terbuka Ringkas & Tabayyun",
+                desc: "Tindakan ini dengan cepat menahan laju rumor berantai. Risiko: Membutuhkan ketegasan kalimat agar tidak dianggap membelah pihak tertentu."
+            },
+            2: {
+                title: "Opsi 2: Debat Panjang & Reaktif",
+                desc: "Membalas tuduhan dengan emosi justru memberikan amunisi obrolan baru. Risiko: Diskusi menjadi tidak terkontrol dan eskalasi konflik membengkak."
+            },
+            3: {
+                title: "Opsi 3: Mengontak Guru PAI / Wali Kelas Privat",
+                desc: "Langkah tepat jika eskalasi perundungan siber sudah melampaui batas kendali siswa. Risiko: Beberapa teman mungkin merespons negatif jika menganggapnya 'mengadu'."
+            },
+            4: {
+                title: "Opsi 4: Hapus Pesan & Berpura-pura Lupa",
+                desc: "Menyelamatkan kenyamanan pribadi dalam jangka pendek, namun membiarkan korban perundungan berjuang sendirian."
+            }
+        };
+
+        function selectB2(num) {
+            const data = b2Data[num];
+            if (!data) return;
+
+            document.getElementById('b2-title').innerText = data.title;
+            document.getElementById('b2-desc').innerText = data.desc;
+            document.getElementById('b2-consequence-box').classList.remove('hidden');
+
+            for (let i = 1; i <= 4; i++) {
+                const btn = document.getElementById(`btn-b2-${i}`);
+                if (i === num) {
+                    btn.classList.add('border-cyan-400', 'bg-cyan-950/40');
+                } else {
+                    btn.classList.remove('border-cyan-400', 'bg-cyan-950/40');
+                }
+            }
+        }
+
+        function resetB2() {
+            document.getElementById('b2-consequence-box').classList.add('hidden');
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById(`btn-b2-${i}`).classList.remove('border-cyan-400', 'bg-cyan-950/40');
+            }
+        }
+
+        // BONUS ROUND DINING LOGIC
+        const diningData = {
+            'A': {
+                title: "Opsi A: Ejek Balik Penyerang",
+                desc: "Meskipun niatnya membela teman, mengejek balik merusak adab lisan di meja makan dan memperluas kegaduhan."
+            },
+            'B': {
+                title: "Opsi B: Diam & Pasrah",
+                desc: "Menghindari pertengkaran saat makan, tetapi membiarkan teman merasa malu dan tidak dihargai dalam majelis makan."
+            },
+            'C': {
+                title: "Opsi C: Hentikan Santun & Alihkan Pembicaraan",
+                desc: "Pilihan paling beradab. Menjaga suasana makan tetap kondusif, meredakan ketegangan tanpa mempermalukan siapapun di depan umum."
+            },
+            'D': {
+                title: "Opsi D: Membahas di Grup Setelah Kejadian",
+                desc: "Menunda penyelesaian. Masalah di meja makan menjadi konsumsi publik online yang tidak perlu."
+            }
+        };
+
+        function selectDining(opt) {
+            const data = diningData[opt];
+            if (!data) return;
+
+            document.getElementById('dining-title').innerText = data.title;
+            document.getElementById('dining-desc').innerText = data.desc;
+            document.getElementById('dining-consequence-box').classList.remove('hidden');
+
+            ['A','B','C','D'].forEach(o => {
+                const btn = document.getElementById(`btn-dining-${o}`);
+                if (o === opt) {
+                    btn.classList.add('border-amber-400', 'bg-amber-950/40');
+                } else {
+                    btn.classList.remove('border-amber-400', 'bg-amber-950/40');
+                }
+            });
+        }
+
+        function resetDining() {
+            document.getElementById('dining-consequence-box').classList.add('hidden');
+            ['A','B','C','D'].forEach(o => {
+                document.getElementById(`btn-dining-${o}`).classList.remove('border-amber-400', 'bg-amber-950/40');
+            });
+        }
+
+        // STANCE SELECTION LOGIC
+        function selectStance(type) {
+            const box = document.getElementById('stance-result-box');
+            const text = document.getElementById('stance-text');
+            box.classList.remove('hidden');
+
+            if (type === 'setuju') {
+                text.innerText = "Mengapa niat baik saja tidak cukup? Bagaimana jika cara yang kita pakai justru memicu masalah baru yang lebih besar?";
+            } else if (type === 'tidak') {
+                text.innerText = "Dalam kondisi darurat seperti apa niat baik dapat menjadi prioritas utama meskipun cara atau dampaknya belum sempurna?";
+            } else {
+                text.innerText = "Faktor risiko apa yang paling membuatmu ragu saat harus mengambil tindakan tegas di depan teman-temanmu?";
+            }
+        }
+
+        // MODAL HELPERS
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) modal.classList.add('hidden');
+        }
+
+        // COPY TO CLIPBOARD FOR TEACHER
+        function copyAssignmentPrompt() {
+            const promptElement = document.getElementById('assignment-prompt-text');
+            if (!promptElement) return;
+
+            const textToCopy = promptElement.innerText;
+
+            // Fallback execCommand for iframe safety
+            const dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = textToCopy;
+            dummy.select();
+            
+            try {
+                document.execCommand('copy');
+                alert('Teks instruksi tugas Google Classroom berhasil disalin!');
+            } catch (err) {
+                alert('Gagal menyalin otomatis. Silakan salin teks secara manual.');
+            }
+            document.body.removeChild(dummy);
+        }
+
+        // INITIALIZATION
+        window.onload = function() {
+            goToPage(1);
+        };
+    </script>
+</body>
+</html>
